@@ -2,8 +2,8 @@
 A discord bot
 
 ## requirements
-[] installed python
-[] installed the modules required
+- [] installed python
+- [] installed the modules required
 
 ### modules:
 - Discord
