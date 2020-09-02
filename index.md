@@ -1,11 +1,11 @@
 # Welcome to Snowden!
 Snowden is a general use Discord bot with some funny quirks and commands.  
 for instance: 
-- can post random cat facts using an API.
-- can find random wikipidia posts and post them in the chat.
-- can repeat something from a person like a @person (works perfectly if you require someone's attention).
-- can send eyes in chat. 👀
-- can send it's own ping to show lag.
+- Post random cat facts using an API.
+- Find random wikipidia posts and post them in the chat.
+- Repeat something from a person like a @person (works perfectly if you require someone's attention).
+- Send eyes in chat. 👀
+- Send it's own ping to show lag.
 
 ## Why would you use Snowden?
 
