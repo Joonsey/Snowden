@@ -47,7 +47,7 @@ async def catfact(ctx):
     await ctx.trigger_typing()
     await ctx.send(r.json()['all'][random.randint(1,200)]['text'])
 ```
-When you send either .catfact or .factcat it will go through the data it has collected from the API and chose a random line of taxt between 1-200 of the update data set.  
+When you send either .catfact or .factcat it will go through the data it has collected from the API and chose a random line of taxt between 1-200 of the updated data set.  
 
 **The repeat command**
 ```python
