@@ -1,5 +1,5 @@
 # Welcome to Snowden!
-Snowden is a general use discord bot with some funny quirks and commands.  
+Snowden is a general use Discord bot with some funny quirks and commands.  
 for instance: 
 - can post random cat facts using an API.
 - can find random wikipidia posts and post them in the chat.
