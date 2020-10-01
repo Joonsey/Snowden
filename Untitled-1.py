@@ -1,11 +1,17 @@
 import requests, pprint, random, discord, asyncio, os
 from discord.ext import commands, tasks
 from itertools import cycle
-from secret import token
-
+from secret import token, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CONSUMER_KEY, CONSUMER_SECRET
+#import tweepy
 client = commands.Bot(command_prefix='.')
 TOKEN = token
 status = cycle(["With Tor's feelings", 'War Thunder','& Getting Cat Facts'])
+thingsRasmusSaid = []
+#Twitter auth
+#auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+#auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+
+#snufkin = tweepy.API(auth)
 
 #f = requests.get('https://api.imgflip.com/get_memes')
 r = requests.get('https://cat-fact.herokuapp.com/facts')
@@ -51,6 +57,21 @@ async def _8ball(ctx,*,arg):
 async def change_status():
     await client.change_presence(activity=discord.Game(next(status)))
 
+@client.event
+async def on_message(message):
+    if message.author.id == 281099385327321088:
+        thingsRasmusSaid.append(str(message.content))
+        print("Rasmus just said something! He said: ", message.content)
+    else:
+        await client.process_commands(message)
+    
 
+@client.command()
+async def shame(ctx):
+    await ctx.send(" **-** ".join(thingsRasmusSaid))
 client.run(TOKEN)
+
+#snufkin.update_status(thingsRasmusSaid)
+
+
 
