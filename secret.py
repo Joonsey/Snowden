@@ -1,3 +1,3 @@
-token = ###########
+token = "NjQ2MDQxODU4MDQ0MDY3ODYx.XdLXXQ.KOQIq8pjm8FYaroy7f7BsBb6kVo"
 CONSUMER_KEY, CONSUMER_SECRET = "token", "token"
 ACCESS_TOKEN, ACCESS_TOKEN_SECRET = "token", "token"
