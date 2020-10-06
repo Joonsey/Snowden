@@ -1,7 +1,7 @@
 import requests, pprint, random, discord, asyncio, os
 from discord.ext import commands, tasks
 from itertools import cycle
-from secret import token, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CONSUMER_KEY, CONSUMER_SECRET
+from secret import token #, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, CONSUMER_KEY, CONSUMER_SECRET
 #import tweepy
 client = commands.Bot(command_prefix='.')
 TOKEN = token
@@ -236,6 +236,7 @@ async def affixes(ctx):
     #+"**"+raiderio["affix_details"][3]['name']+"** "+"\n"+
     #raiderio["affix_details"][3]['description'])
     await ctx.send(embed=embeded)
+    await ctx.message.delete()
 client.add_cog(memes())
 client.run(TOKEN)
 
