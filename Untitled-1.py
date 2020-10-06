@@ -21,6 +21,7 @@ thingsRasmusSaid = []
 #}
 f = requests.get('https://api.imgflip.com/get_memes')
 r = requests.get('https://cat-fact.herokuapp.com/facts')
+raiderio = requests.get('https://raider.io/api/v1/mythic-plus/affixes?region=eu&locale=en').json()
 #w = requests.get('http://en.wikipedia.org/w/api.php?action=query&generator=random&grnnamespace=0&prop=extracts&exchars=500&format=json')
 #s = requests.get('eu.api.blizzard.com')
 w = requests.get('https://api.met.no/weatherapi/locationforecast/2.0/compact?altitude=142&lat=59.7472&lon=10.3883')
@@ -217,6 +218,24 @@ async def embed(ctx, *args):
     embedVar = discord.Embed(title="I have no clue how to use this properly", description=" ".join(args), color=0x00ff00)
     await ctx.send(embed=embedVar)
     await ctx.message.delete()
+
+@client.command()
+async def affixes(ctx):
+    "Gets weekly Mythic+ affix information"
+    embeded = discord.Embed(title="Raider.io Affixes", color=0x00ff00)
+    embeded.add_field(name=raiderio["affix_details"][0]['name'],value=raiderio["affix_details"][0]['description'])
+    embeded.add_field(name=raiderio["affix_details"][1]['name'],value=raiderio["affix_details"][1]['description'])
+    embeded.add_field(name=raiderio["affix_details"][2]['name'],value=raiderio["affix_details"][2]['description'])
+    embeded.add_field(name=raiderio["affix_details"][3]['name'],value=raiderio["affix_details"][3]['description'])
+    #await ctx.send(">>> **" + raiderio["affix_details"][0]['name']+"** "+"\n"+
+    #raiderio["affix_details"][0]['description']+"\n"
+    #+"**"+raiderio["affix_details"][1]['name']+"** "+"\n"+
+    #raiderio["affix_details"][1]['description']+"\n"
+    #+"**"+raiderio["affix_details"][2]['name']+"** "+"\n"+
+    #raiderio["affix_details"][2]['description']+"\n"
+    #+"**"+raiderio["affix_details"][3]['name']+"** "+"\n"+
+    #raiderio["affix_details"][3]['description'])
+    await ctx.send(embed=embeded)
 client.add_cog(memes())
 client.run(TOKEN)
 
