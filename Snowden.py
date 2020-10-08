@@ -27,7 +27,7 @@ raiderio = requests.get('https://raider.io/api/v1/mythic-plus/affixes?region=eu&
 
 #NOTE 
 # Yahoo finance data
-#TODO FIX THIS SHIT CUS IT'S DOGSHIT, MAKE A CLASS OR SMTH YOU IDIOT SMTH
+#TODO FIX THIS SHIT CUS IT'S DOGSHIT, MAKE A CLASS OR SMTH YOU IDIOT SMH
 import yfinance as yf
 class Stock:
     
@@ -316,7 +316,7 @@ class stocks(commands.Cog):
         embed.add_field(name="Daliy low", value=n.dayLow)
         await ctx.send(embed=embed)
         await ctx.message()
-        
+
     @commands.command()
     async def tesla(self, ctx):
         "Shows stock information about Tesla / TSLA"
