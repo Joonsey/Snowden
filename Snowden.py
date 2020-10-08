@@ -25,6 +25,64 @@ raiderio = requests.get('https://raider.io/api/v1/mythic-plus/affixes?region=eu&
 #w = requests.get('http://en.wikipedia.org/w/api.php?action=query&generator=random&grnnamespace=0&prop=extracts&exchars=500&format=json')
 #s = requests.get('eu.api.blizzard.com')
 
+#NOTE 
+# Yahoo finance data
+#TODO FIX THIS SHIT CUS IT'S DOGSHIT, MAKE A CLASS OR SMTH YOU IDIOT SMTH
+import yfinance as yf
+class Stock:
+    
+    
+    def __init__(self, stock):
+        self.stock = stock
+        self.bid = str(self.currentBid())
+        self.dayLow = str(self.dayLow())
+        self.dayHigh = str(self.dayHigh())
+        self.dr = str(self.dividendRate())
+        self.dy = str(self.dividendYield())
+
+    def currentBid(self):
+        return yf.Ticker(self.stock).info['bid']
+        
+    def dayLow(self):
+        return yf.Ticker(self.stock).info['dayLow']
+
+    def dayHigh(self):
+        return yf.Ticker(self.stock).info['dayHigh']
+
+    def dividendRate(self):
+        return yf.Ticker(self.stock).info['dividendRate']
+    
+    def dividendYield(self):
+        return yf.Ticker(self.stock).info['dividendYield']
+
+
+
+
+#print(yf.Ticker('AAPL').info['bid'])
+
+#def tgt():
+#    gt = yf.Ticker('TGT')
+#    gtdayHigh = tgt.info['dayHigh']
+#    gtdayLow = tgt.info['dayLow']
+#    gtcurrentBid = tgt.info['bid']
+#    gtdr = tgt.info['dividendRate']
+#    gtdy = tgt.info['dividendYield']
+#
+#def TSLA():
+#    TSLA = yf.Ticker('TSLA')
+#    TSLAdayHigh = TSLA.info['dayHigh']
+#    TSLAdayLow = TSLA.info['dayLow']
+#    TSLAcurrentBid = TSLA.info['bid']
+#    TSLAdr = TSLA.info['dividendRate']
+#    TSLAdy = TSLA.info['dividendYield']
+#
+#def AAPL():
+#    AAPL = yf.Ticker('AAPL')
+#    AAPLdayHigh = AAPL.info['dayHigh']
+#    AAPLdayLow = AAPL.info['dayLow']
+#    AAPLcurrentBid = AAPL.info['bid']
+#    AAPLdr = AAPL.info['dividendRate']
+#    AAPLdy = AAPL.info['dividendYield']
 
 
 #    if værbilde == "heavyrain":
@@ -242,7 +300,51 @@ async def affixes(ctx):
     #raiderio["affix_details"][3]['description'])
     await ctx.send(embed=embeded)
     await ctx.message.delete()
+
+
+class stocks(commands.Cog):
+    """Shows stock information, WARNING: THEY ARE VEEEERY SLOW"""
+
+    @commands.command()
+    async def apple(self, ctx):
+        "Shows stock information about Apple / AAPL"
+        print("Getting information on Apple")
+        n = Stock('AAPL')
+        embed = discord.Embed(title="Apple stock information", color=0xFF8000)
+        embed.add_field(name="Bid", value=n.bid)
+        embed.add_field(name="Daily high", value=n.dayHigh)
+        embed.add_field(name="Daliy low", value=n.dayLow)
+        await ctx.send(embed=embed)
+        await ctx.message()
+        
+    @commands.command()
+    async def tesla(self, ctx):
+        "Shows stock information about Tesla / TSLA"
+        print("Getting information on Tesla")
+        n = Stock('TSLA')
+        embed = discord.Embed(title="Tesla stock information", color=0xFF8000)
+        embed.add_field(name="Bid", value=n.bid)
+        embed.add_field(name="Daily high", value=n.dayHigh)
+        embed.add_field(name="Daliy low", value=n.dayLow)
+        await ctx.send(embed=embed)
+        await ctx.message()
+
+    @commands.command(aliases=['target'])
+    async def tgt(self, ctx):
+        "Shows stock information about Target / tgt"
+        print("Getting information on Target")
+        n = Stock('tgt')
+        embed = discord.Embed(title="Target stock information", color=0xFF8000)
+        embed.add_field(name="Bid", value=n.bid)
+        embed.add_field(name="Daily high", value=n.dayHigh)
+        embed.add_field(name="Daliy low", value=n.dayLow)
+        await ctx.send(embed=embed)
+        await ctx.message()
+
+
+
 client.add_cog(memes())
+client.add_cog(stocks())
 client.run(TOKEN)
 
 #snufkin.update_status(thingsRasmusSaid)
