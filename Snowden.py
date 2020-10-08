@@ -24,24 +24,9 @@ r = requests.get('https://cat-fact.herokuapp.com/facts')
 raiderio = requests.get('https://raider.io/api/v1/mythic-plus/affixes?region=eu&locale=en').json()
 #w = requests.get('http://en.wikipedia.org/w/api.php?action=query&generator=random&grnnamespace=0&prop=extracts&exchars=500&format=json')
 #s = requests.get('eu.api.blizzard.com')
-w = requests.get('https://api.met.no/weatherapi/locationforecast/2.0/compact?altitude=142&lat=59.7472&lon=10.3883')
-værdata = w.json()['properties']['timeseries'][0]['data']['instant']['details']
-værtid = w.json()['properties']['timeseries'][0]['time']
-værbilde = w.json()['properties']['timeseries'][0]['data']['next_1_hours']['summary']['symbol_code']
 
-def værcheck():
-    if "rain" in værbilde:
-        return ":cloud_rain:"
-    elif "sunny" or "clear" in værbilde:
-        return ":sunny:"
-    elif "cloudy" in værbilde:
-        return ":cloud:"
-    elif "fog" in værbilde:
-        return ":fog:"
-    elif "thunder" in værbilde:
-        return ":thunder_cloud_rain:"
-    else:
-        return ":cloud:"
+
+
 #    if værbilde == "heavyrain":
 #        return ":cloud_rain:"
 #    elif værbilde == "clearsky":
@@ -201,6 +186,26 @@ async def on_message(message):
 @client.command(aliases=['weather'])
 async def vær(ctx):
     "Shows weather information in MY local area"
+    w = requests.get('https://api.met.no/weatherapi/locationforecast/2.0/compact?altitude=142&lat=59.7472&lon=10.3883')
+    værdata = w.json()['properties']['timeseries'][0]['data']['instant']['details']
+    værtid = w.json()['properties']['timeseries'][0]['time']
+    værbilde = w.json()['properties']['timeseries'][0]['data']['next_1_hours']['summary']['symbol_code']
+
+    def værcheck():
+        if "rain" in værbilde:
+            return ":cloud_rain:"
+        elif "sunny" or "clear" in værbilde:
+            return ":sunny:"
+        elif "cloudy" in værbilde:
+            return ":cloud:"
+        elif "fog" in værbilde:
+            return ":fog:"
+        elif "thunder" in værbilde:
+            return ":thunder_cloud_rain:"
+        else:
+            return ":cloud:"
+
+
     await ctx.send("The temperature is: " + str(værdata["air_temperature"]) + "°C \n" +
 'The air humidity is: ' + str(værdata["relative_humidity"]) + "% \n"
 'The wind speed is: ' + str(værdata["wind_speed"]) + 'm/s \n'
