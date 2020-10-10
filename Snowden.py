@@ -29,6 +29,7 @@ raiderio = requests.get('https://raider.io/api/v1/mythic-plus/affixes?region=eu&
 # Yahoo finance data
 #TODO FIX THIS SHIT CUS IT'S DOGSHIT, MAKE A CLASS OR SMTH YOU IDIOT SMH
 import yfinance as yf
+
 class Stock:
     
     
@@ -39,6 +40,7 @@ class Stock:
         self.dayHigh = str(self.dayHigh())
         self.dr = str(self.dividendRate())
         self.dy = str(self.dividendYield())
+        self.name = str(self.name())
 
     def currentBid(self):
         return yf.Ticker(self.stock).info['bid']
@@ -54,6 +56,9 @@ class Stock:
     
     def dividendYield(self):
         return yf.Ticker(self.stock).info['dividendYield']
+    
+    def name(self):
+        return yf.Ticker(self.stock).info['shortName']
 
 
 
@@ -313,9 +318,9 @@ class stocks(commands.Cog):
         embed = discord.Embed(title="Apple stock information", color=0xFF8000)
         embed.add_field(name="Bid", value=n.bid)
         embed.add_field(name="Daily high", value=n.dayHigh)
-        embed.add_field(name="Daliy low", value=n.dayLow)
+        embed.add_field(name="Daily low", value=n.dayLow)
         await ctx.send(embed=embed)
-        await ctx.message()
+        await ctx.message.delete()
 
     @commands.command()
     async def tesla(self, ctx):
@@ -325,9 +330,9 @@ class stocks(commands.Cog):
         embed = discord.Embed(title="Tesla stock information", color=0xFF8000)
         embed.add_field(name="Bid", value=n.bid)
         embed.add_field(name="Daily high", value=n.dayHigh)
-        embed.add_field(name="Daliy low", value=n.dayLow)
+        embed.add_field(name="Daily low", value=n.dayLow)
         await ctx.send(embed=embed)
-        await ctx.message()
+        await ctx.message.delete()
 
     @commands.command(aliases=['target'])
     async def tgt(self, ctx):
@@ -337,10 +342,23 @@ class stocks(commands.Cog):
         embed = discord.Embed(title="Target stock information", color=0xFF8000)
         embed.add_field(name="Bid", value=n.bid)
         embed.add_field(name="Daily high", value=n.dayHigh)
-        embed.add_field(name="Daliy low", value=n.dayLow)
+        embed.add_field(name="Daily low", value=n.dayLow)
         await ctx.send(embed=embed)
-        await ctx.message()
+        await ctx.message.delete()
 
+
+    @commands.command()
+    async def stonks(self, ctx, name):
+        "Shows stock information on a stock passed in the parameter"
+        print("value entered: ", name)
+        n = Stock(name)
+        print(f"Getting information on {n.name}")
+        embed = discord.Embed(title=f"{n.name} stock information", color=0xFF8000)
+        embed.add_field(name="Bid", value=n.bid)
+        embed.add_field(name="Daily high", value=n.dayHigh)
+        embed.add_field(name="Daily low", value=n.dayLow)
+        await ctx.send(embed=embed)
+        await ctx.message.delete()
 
 
 client.add_cog(memes())
